@@ -15,7 +15,7 @@ const ProjectCard = ({ project }) => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/tasks/project/${project._id}`, { withCredentials: true });
+      const res = await axios.get(`https://task-manager-pro-production-5eb7.up.railway.app/api/tasks/project/${project._id}`, { withCredentials: true });
       setTasks(res.data);
     } catch (error) {
       console.error('Error fetching tasks');
@@ -25,7 +25,7 @@ const ProjectCard = ({ project }) => {
   const handleAddTask = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/tasks',
+      await axios.post('https://task-manager-pro-production-5eb7.up.railway.app/api/tasks',
         { title: taskTitle, project: project._id },
         { withCredentials: true }
       );
@@ -38,7 +38,7 @@ const ProjectCard = ({ project }) => {
 
   const handleUpdateStatus = async (taskId, newStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/tasks/${taskId}`,
+      await axios.put(`https://task-manager-pro-production-5eb7.up.railway.app/api/tasks/${taskId}`,
         { status: newStatus },
         { withCredentials: true }
       );
@@ -125,7 +125,7 @@ export default function Dashboard() {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/projects', {
+      const response = await axios.get('https://task-manager-pro-production-5eb7.up.railway.app/api/projects', {
         withCredentials: true
       });
       setProjects(response.data);
@@ -137,7 +137,7 @@ export default function Dashboard() {
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/projects',
+      await axios.post('https://task-manager-pro-production-5eb7.up.railway.app/api/projects',
         { name, description },
         { withCredentials: true }
       );
@@ -151,7 +151,7 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/logout', {}, { withCredentials: true });
+      await axios.post('https://task-manager-pro-production-5eb7.up.railway.app/api/auth/logout', {}, { withCredentials: true });
       localStorage.removeItem('user');
       navigate('/');
     } catch (error) {

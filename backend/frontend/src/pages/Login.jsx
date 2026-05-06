@@ -12,8 +12,8 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevents the page from refreshing
     try {
-      // Talk to your backend API!
-      const response = await axios.post('http://localhost:5000/api/auth/login',
+      // Talk to your backend API! Notice the https:// and the /api/auth/login
+      const response = await axios.post('https://task-manager-pro-production-5eb7.up.railway.app/api/auth/login',
         { email, password },
         { withCredentials: true } // This is CRUCIAL to save the security cookie
       );
