@@ -18,18 +18,18 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev')); // Logging for development
 }
 
+// --- FIXED CORS VIP LIST ---
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true, // Allow sending cookies
+  origin: 'https://task-manager-pro-blush.vercel.app', // Your exact Vercel URL
+  credentials: true, // Allow sending security cookies
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
+
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// --- Routes ---
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/projects', require('./routes/projectRoutes'));
+// --- Routes (Cleaned up duplicates) ---
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
