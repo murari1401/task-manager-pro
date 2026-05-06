@@ -1,7 +1,6 @@
-// frontend/src/App.jsx
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard'; // Import the new Dashboard!
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (

@@ -1,14 +1,11 @@
-// frontend/src/pages/Dashboard.jsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-// --- NEW: A mini-component to handle each Project and its own Tasks ---
 const ProjectCard = ({ project }) => {
   const [tasks, setTasks] = useState([]);
   const [taskTitle, setTaskTitle] = useState('');
 
-  // Fetch tasks for this specific project as soon as it loads
   useEffect(() => {
     fetchTasks();
   }, [project._id]);
@@ -29,7 +26,7 @@ const ProjectCard = ({ project }) => {
         { title: taskTitle, project: project._id },
         { withCredentials: true }
       );
-      setTaskTitle(''); // clear the input box
+      setTaskTitle('');
       fetchTasks(); // instantly refresh the task list
     } catch (error) {
       console.error('Error creating task');

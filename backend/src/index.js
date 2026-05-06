@@ -1,4 +1,3 @@
-// backend/src/index.js
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
@@ -18,29 +17,28 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev')); // Logging for development
 }
 
-// --- FIXED CORS VIP LIST ---
 app.use(cors({
-  origin: 'https://task-manager-pro-blush.vercel.app', // Your exact Vercel URL
-  credentials: true, // Allow sending security cookies
+  origin: 'https://task-manager-pro-blush.vercel.app',
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
-app.use(express.json()); // Parse JSON bodies
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// --- Routes (Cleaned up duplicates) ---
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
-// --------------
 
-// Basic Route for testing
+
+
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'API is running smoothly.' });
 });
 
-// Start Server
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
