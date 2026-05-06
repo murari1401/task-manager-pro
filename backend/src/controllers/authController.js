@@ -32,11 +32,11 @@ exports.registerUser = async (req, res) => {
     if (user) {
       const token = generateToken(user._id);
 
-      // Send token in an HTTP-only cookie for premium security
+      // Updated for cross-domain production deployment
       res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // true if on Railway, false on localhost
-        sameSite: 'strict',
+        secure: true,
+        sameSite: 'none',
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       });
 
@@ -61,15 +61,16 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     // Check for user email
-    const user = await User.findOne({ email }).select('+password'); // We use +password because we hid it in the model
+    const user = await User.findOne({ email }).select('+password');
 
     if (user && (await user.matchPassword(password))) {
       const token = generateToken(user._id);
 
+      // Updated for cross-domain production deployment
       res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: true,
+        sameSite: 'none',
         maxAge: 30 * 24 * 60 * 60 * 1000,
       });
 
@@ -90,8 +91,11 @@ exports.loginUser = async (req, res) => {
 // @desc    Logout user / clear cookie
 // @route   POST /api/auth/logout
 exports.logoutUser = (req, res) => {
+  // Updated logout to match cross-domain settings
   res.cookie('token', '', {
     httpOnly: true,
+    secure: true,
+    sameSite: 'none',
     expires: new Date(0),
   });
   res.status(200).json({ message: 'Logged out successfully' });
